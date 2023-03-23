@@ -1,6 +1,8 @@
 import { PokeAPI } from 'pokeapi-types';
 
 import styles from '@/styles/Home.module.css'
+import Card from './components/Card';
+
 import Image from 'next/image';
 
 interface props {
@@ -43,7 +45,7 @@ export default function Home({ pokemons }: props) {
       </div>
       <div className={styles.pokemon_container}>
         {pokemons.map((pokemon) => (
-          <p key={pokemon.id}>{pokemon.name}</p>
+          <Card pokemon={pokemon}/>
         ))}
       </div>
     </>
