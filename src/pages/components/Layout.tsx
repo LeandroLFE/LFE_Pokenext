@@ -2,7 +2,6 @@ import Footer from "./Footer";
 import Navbar from "./Navbar";
 
 import Head from "next/head";
-
 import { ReactNode } from "react";
 
 interface MyProps {
@@ -17,7 +16,7 @@ export default function Layout({ children }: MyProps) {
                 <title>LFE_PokeNext</title>
             </Head>
             <Navbar />
-            <main>{children}</main>
+            <main className="main-container">{children}</main>
             <Footer />
         </>
     )
