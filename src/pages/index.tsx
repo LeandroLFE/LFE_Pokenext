@@ -1,7 +1,7 @@
 import { PokeAPI } from 'pokeapi-types';
 
 import styles from '@/styles/Home.module.css'
-import Card from './components/Card';
+import Card from '../../components/Card';
 
 import Image from 'next/image';
 
