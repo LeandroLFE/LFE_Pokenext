@@ -5,12 +5,15 @@ import { PokeAPI } from "pokeapi-types"
 
 import styles from '@/styles/Pokemon.module.css'
 
+import { useRouter } from "next/router";
+import Loading from "../../../components/Loading";
+
 interface pokemon {
     pokemon: PokeAPI.Pokemon
 }
 
 export const getStaticPaths = async () => {
-    const maxPokemons = 151;
+    const maxPokemons = 251;
     const api = "https://pokeapi.co/api/v2/pokemon"
 
     const res = await fetch(`${api}/?limit=${maxPokemons}`)
@@ -26,7 +29,7 @@ export const getStaticPaths = async () => {
 
     return {
         paths,
-        fallback: false,
+        fallback: true,
     }
 }
 
@@ -36,6 +39,13 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
     const api = "https://pokeapi.co/api/v2/pokemon"
 
     const res = await fetch(`${api}/${id}`)
+    
+    if(res.status === 404){
+        return {
+            notFound: true
+        }
+    }
+
     const data = await res.json()
 
     return {
@@ -45,6 +55,13 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 }
 
 export default function Pokemon({ pokemon }: pokemon) {
+
+    const router = useRouter()
+
+    if(router.isFallback){
+        return <Loading />
+    }
+
     return (
         <div className={styles.pokemon_container}>
             <h1 className={styles.title}>{pokemon.name}</h1>
